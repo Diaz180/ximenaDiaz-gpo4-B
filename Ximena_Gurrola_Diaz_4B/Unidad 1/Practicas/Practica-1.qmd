@@ -1,0 +1,88 @@
+---
+title: "practica 1 Clases, objetos y atributos"
+format: html
+---
+
+#Una clase es una plantilla o un molde
+#que define como sera un objetp
+class persona: 
+    def _init_(self, nombre, edad): #Constructor de una clase
+        self.nombre = nombre
+        self.edad = edad 
+
+    def estudiar(self):
+        print(f"Hola mi nombre es {self.nombre} y mi edad es {self.edad}")
+                
+
+# Un objeto es una instancia creada a 
+# partir de una clase
+#Crear un objeto que pertence a una clase
+estudiante1 = persona ("Ximena", 18)
+estudiante2 = persona ("Renatha", 19)
+
+estudiante1.estudiar()
+estudiante2.estudiar()
+
+# Agrega un metodo cumplir_anios() que aumente 1 la edad
+class persona:
+    def _init_(self, nombre, edad):
+        self.nombre = nombre
+        self.edad = edad
+
+    def cumplir_anios(self):
+        self.edad += 1
+        print(f"¡Feliz cumpleaños {self.nombre}! Ahora tienes {self.edad} años")
+
+persona1 = persona("Ximena", 18)
+print(f"{persona1.nombre} tiene {persona1.edad} años.")
+
+persona1.cumplir_anios()
+
+class Mascota:
+    def _init_(self, nombre, especie, edad, peso, color_ojos):
+        self.nombre = nombre
+        self.especie = especie
+        self.edad = edad
+        self.peso = peso
+        self.color_ojos = color_ojos   # atributo innecesario (no lo usaremos)
+
+    # Método 1: cumplir años
+    def cumplir_anios(self):
+        self.edad += 1
+        return self.edad
+
+    # Método 2: alimentar (sube peso)
+    def alimentar(self, cantidad_comida):
+        self.peso += cantidad_comida * 0.1  # la comida aumenta el peso en proporción
+        return self.peso
+
+    # Método 3: jugar (baja peso)
+    def jugar(self, minutos):
+        self.peso -= minutos * 0.05
+        if self.peso < 0:
+            self.peso = 0
+        return self.peso
+
+    # Método 4: mostrar datos de la mascota
+    def info(self):
+        return f"{self.nombre} ({self.especie}) - Edad: {self.edad}, Peso: {self.peso:.1f} kg"
+
+
+# Crear instancias
+perro = Mascota("Firulais", "Perro", 3, 12, "Café")
+gato = Mascota("Michi", "Gato", 2, 5, "Azules")
+
+# Usar métodos
+print(perro.info())
+perro.cumplir_anios()
+perro.alimentar(5)
+perro.jugar(20)
+print(perro.info())
+
+print()
+
+print(gato.info())
+gato.cumplir_anios()
+gato.alimentar(3)
+gato.jugar(15)
+print(gato.info())

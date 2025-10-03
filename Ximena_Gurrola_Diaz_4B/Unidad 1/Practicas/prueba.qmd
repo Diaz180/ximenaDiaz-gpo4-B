@@ -22,7 +22,7 @@ for i in range(len(productos)):
     
 cantidad = []
 
-# Pedir cantid4ades al usuario
+# Pedir cantidades al usuario
 for i in range(len(productos)):
     cant = int(input(f"¿Cuántos {productos[i]} desea?: "))
     cantidad.append(cant)

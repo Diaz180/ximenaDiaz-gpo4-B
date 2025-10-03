@@ -1,0 +1,109 @@
+class ticket:
+    def __init__(self, id, tipo, prioridad, estado): 
+        self.id = id
+        self.tipo = tipo
+        self.prioridad = prioridad
+        self.estado = estado
+
+
+class empleado:
+    def __init__(self, nombre): 
+        self.nombre = nombre
+
+    def nombre_empleado(self):
+        print(f"El empleado {self.nombre} revisará un ticket")
+
+
+class desarrollador(empleado):
+    def trabajar_ticket(self, ticket):
+        if ticket.tipo.lower() == "software":
+            ticket.estado = "resuelto"
+            print(f"El ticket {ticket.id} fue resuelto por {self.nombre}")
+        else:
+            print("Este tipo de empleado no puede resolver este ticket")
+
+
+class projectManager(empleado):
+    def asignar_ticket(self, ticket, empleado):
+        print(f"{self.nombre} asignó el ticket {ticket.id} al empleado {empleado.nombre}")
+        if hasattr(empleado, "trabajar_ticket"):
+            empleado.trabajar_ticket(ticket)
+        else:
+            print(f"{empleado.nombre} no puede trabajar tickets.")
+
+
+
+ticket1 = ticket(234, "Software", "Media", "pendiente")
+ticket2 = ticket(209, "Prueba", "Baja", "Atendido")
+
+
+developer1 = desarrollador("Ximena")
+tester1 = empleado("Renatha")
+pm1 = projectManager("Helena")
+
+pm1.asignar_ticket(ticket1, developer1)
+
+tickets = []
+developer1 = desarrollador("Ximena")
+tester1 = empleado("Renatha")
+pm1 = projectManager("Helena")
+
+while True:
+    print("MENÚ")
+    print("1. Crear un ticket")
+    print("2. Ver tickets")
+    print("3. Asignar ticket")
+    print("4. Salir")
+
+    opcion = input("Elige una opción: ")
+
+    if opcion == "1":
+        id = int(input("ID del ticket: "))
+        tipo = input("Tipo (Software/Prueba/etc): ")
+        prioridad = input("Prioridad (Alta/Media/Baja): ")
+        estado = "pendiente"
+        nuevo_ticket = ticket(id, tipo, prioridad, estado)
+        tickets.append(nuevo_ticket)
+        print(f"Ticket {id} creado con éxito.")
+
+    elif opcion == "2":
+        if not tickets:
+            print("No hay tickets registrados.")
+        else:
+            for t in tickets:
+                print(f"ID: {t.id}, Tipo: {t.tipo}, Prioridad: {t.prioridad}, Estado: {t.estado}")
+
+    elif opcion == "3":
+        if not tickets:
+            print("No hay tickets para asignar.")
+        else:
+            for t in tickets:
+                print(f"ID: {t.id}, Tipo: {t.tipo}, Estado: {t.estado}")
+
+            id_ticket = int(input("Ingresa el ID del ticket a asignar: "))
+            encontrado = None
+            for t in tickets:
+                if t.id == id_ticket:
+                    encontrado = t
+                    break
+
+            if encontrado:
+                print("¿A quién deseas asignarlo?")
+                print("1. Desarrollador (Renatha)")
+                print("2. Tester (Ximena)")
+                opcion_emp = input("Elige: ")
+                if opcion_emp == "1":
+                    pm1.asignar_ticket(encontrado, developer1)
+                elif opcion_emp == "2":
+                    pm1.asignar_ticket(encontrado, tester1)
+                else:
+                    print("Opción inválida.")
+            else:
+                print("Ticket no encontrado.")
+
+    elif opcion == "4":
+        print("Saliendo del programa...")
+        break
+
+    else:
+        print("Opción inválida, intenta de nuevo.")
